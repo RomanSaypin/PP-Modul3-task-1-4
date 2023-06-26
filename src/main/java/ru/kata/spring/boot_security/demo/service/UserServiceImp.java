@@ -18,13 +18,11 @@ import java.util.Optional;
 @Service
 public class UserServiceImp implements UserService, UserDetailsService {
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImp(UserRepository userRepository, RoleRepository roleRepository, @Lazy PasswordEncoder passwordEncoder) {
+    public UserServiceImp(UserRepository userRepository, @Lazy PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -49,12 +47,11 @@ public class UserServiceImp implements UserService, UserDetailsService {
     @Transactional
     public void saveUsers(User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.addRole(roleRepository.getById(2));
         userRepository.save(user);
     }
 
     @Override
-    public User getUser(int id) {
+    public User getUser(long id) {
         Optional<User> user = userRepository.findById(id);
         return user.orElse(null);
     }
@@ -70,7 +67,7 @@ public class UserServiceImp implements UserService, UserDetailsService {
 
     @Override
     @Transactional
-    public void deleteUser(int id) {
+    public void deleteUser(long id) {
         userRepository.deleteById(id);
     }
 }

@@ -23,13 +23,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         this.userServiceImp = userServiceImp;
     }
 
-    @Bean
-    public DaoAuthenticationProvider daoAuthenticationProvider() {
-        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-           authenticationProvider.setPasswordEncoder(getPasswordEncoder());
-        authenticationProvider.setUserDetailsService(userServiceImp);
-        return authenticationProvider;
-    }
+//    @Bean
+//    public DaoAuthenticationProvider daoAuthenticationProvider() {
+//        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
+//           authenticationProvider.setPasswordEncoder(getPasswordEncoder());
+//        authenticationProvider.setUserDetailsService(userServiceImp);
+//        return authenticationProvider;
+//    }
     @Bean
     public PasswordEncoder getPasswordEncoder() {
         return new BCryptPasswordEncoder();
@@ -37,7 +37,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(daoAuthenticationProvider());
+        auth.userDetailsService(userServiceImp)
+                .passwordEncoder(getPasswordEncoder());
     }
 
     @Override

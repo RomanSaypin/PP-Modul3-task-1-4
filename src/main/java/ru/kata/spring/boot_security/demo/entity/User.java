@@ -17,7 +17,7 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    private int id;
+    private long id;
     @Column(name = "name", unique = true)
     private String name;
     @Column(name = "last_name")
@@ -48,8 +48,9 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getAuthority()))
-                .collect(Collectors.toList());
+//        return roles.stream().map(role -> new SimpleGrantedAuthority(role.getAuthority()))
+//                .collect(Collectors.toList());
+        return roles;
     }
 
     @Override
@@ -82,11 +83,11 @@ public class User implements UserDetails {
         return true;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
