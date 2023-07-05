@@ -1,15 +1,14 @@
-package ru.kata.spring.boot_security.demo.controllers;
+package ru.kata.spring.boot_security_bootstrap.demo.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.kata.spring.boot_security.demo.entity.Role;
-import ru.kata.spring.boot_security.demo.entity.User;
-import ru.kata.spring.boot_security.demo.service.RoleService;
-import ru.kata.spring.boot_security.demo.service.UserService;
+import ru.kata.spring.boot_security_bootstrap.demo.entity.User;
+import ru.kata.spring.boot_security_bootstrap.demo.service.RoleService;
+import ru.kata.spring.boot_security_bootstrap.demo.service.UserService;
 
-import java.util.List;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/admin")
@@ -23,10 +22,18 @@ public class AdminController {
         this.roleService = roleService;
     }
 
+//    @GetMapping("/allUser")
+//    public String showAllUsers(Model model, Principal principal) {
+//        model.addAttribute("users", userService.getAllUsers());
+//        model.addAttribute("userAdmin", userService.findByUsername(principal.getName()));
+//        return "AllUsers";
+//    }
+
     @GetMapping("/allUser")
-    public String showAllUsers(Model model) {
+    public String showAllUsers(Model model, Principal principal) {
         model.addAttribute("users", userService.getAllUsers());
-        return "AllUsers";
+        model.addAttribute("userAdmin", userService.findByUsername(principal.getName()));
+        return "admin-page";
     }
 
     @GetMapping("/addNewUser")

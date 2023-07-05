@@ -1,15 +1,12 @@
-package ru.kata.spring.boot_security.demo.entity;
+package ru.kata.spring.boot_security_bootstrap.demo.entity;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "users")
@@ -132,6 +129,13 @@ public class User implements UserDetails {
             roles = new ArrayList<>();
         }
         roles.add(role);
+    }
+    public String nameRole() {
+        StringBuilder roleName = new StringBuilder();
+        for(Role role : roles) {
+            roleName.append(role.getRole()).append(" ");
+        }
+        return roleName.toString();
     }
 
     @Override
