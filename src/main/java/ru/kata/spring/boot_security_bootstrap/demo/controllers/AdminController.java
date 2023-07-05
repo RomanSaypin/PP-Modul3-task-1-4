@@ -29,21 +29,31 @@ public class AdminController {
 //        return "AllUsers";
 //    }
 
+//    @GetMapping("/allUser")
+//    public String showAllUsers(Model model, Principal principal) {
+//        model.addAttribute("users", userService.getAllUsers());
+//        model.addAttribute("userAdmin", userService.findByUsername(principal.getName()));
+//        model.addAttribute("listRole", roleService.findAll());
+//        return "admin-page";
+//    }
+
     @GetMapping("/allUser")
     public String showAllUsers(Model model, Principal principal) {
         model.addAttribute("users", userService.getAllUsers());
         model.addAttribute("userAdmin", userService.findByUsername(principal.getName()));
-        return "admin-page";
+        model.addAttribute("listRole", roleService.findAll());
+        return "admin";
     }
 
-    @GetMapping("/addNewUser")
-    public String newUser(@ModelAttribute("newUser") User user, Model model) {
-        model.addAttribute("roleList", roleService.findAll());
-        return "user-info";
-    }
+
+//    @GetMapping("/addNewUser")
+//    public String newUser(@ModelAttribute("newUser") User user, Model model) {
+//        model.addAttribute("roleList", roleService.findAll());
+//        return "user-info";
+//    }
 
     @PostMapping("/")
-    public String saveUser(@ModelAttribute("newUser") User user) {
+    public String saveUser(@ModelAttribute("addUser") User user) {
         userService.saveUsers(user);
         return "redirect:/admin/allUser";
     }

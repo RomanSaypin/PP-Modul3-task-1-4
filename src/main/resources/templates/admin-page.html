@@ -88,11 +88,73 @@
                             </thead>
                         </table>
                     </div>
-                    <div class="tab-pane fade" id="new-user" role="tabpanel" aria-labelledby="new-user-tab">New user
-                        form
+                    <!--                    <div class="tab-pane fade" id="new-user" role="tabpanel" aria-labelledby="new-user-tab">New user-->
+                    <!--                        form-->
+                    <!--                    </div>-->
+                    <div class="tab-pane fade" id="newUser">
+                        <div class="card">
+                            <h5 class="card-header">Add new user</h5>
+                            <div class="card-body text-center">
+                                <form th:method="POST" th:action="@{/admin/}" th:object="${addUser}">
+                                    <label class="font-weight-bold" for="firstNameNew">First name</label>
+                                    <br>
+                                    <input class="form-control" type="text" required minlength="2" maxlength="15"
+                                           name="name"
+                                           id="firstNameNew"
+                                           style="height: 30px; width: 300px; margin: 0 auto"
+                                           placeholder="name"/>
+                                    <br>
+                                    <label class="font-weight-bold" for="lastNameNew">Last name</label>
+                                    <br>
+                                    <input class="form-control" type="text" required minlength="2" maxlength="15"
+                                           name="lastName"
+                                           id="lastNameNew"
+                                           style="height: 30px; width: 300px; margin: 0 auto"
+                                           placeholder="last name"/>
+                                    <br>
+                                    <label class="font-weight-bold" for="ageNew">Age</label>
+                                    <br>
+                                    <input class="form-control" type="text" step="1" min="0" required minlength="1"
+                                           maxlength="120" name="age"
+                                           id="ageNew"
+                                           style="height: 30px; width: 300px; margin: 0 auto"
+                                           placeholder="age"/>
+                                    <br>
+                                    <label class="font-weight-bold" for="emailNew">Email</label>
+                                    <br>
+                                    <input class="form-control" type="text" name="email"
+                                           id="emailNew"
+                                           style="height: 30px; width: 300px; margin: 0 auto"
+                                           placeholder="email"/>
+                                    <br>
+                                    <label class="font-weight-bold" for="passwordNew">Password</label>
+                                    <br>
+                                    <input class="form-control" type="text" required minlength="3" maxlength="15"
+                                           name="password"
+                                           id="passwordNew"
+                                           style="height: 30px; width: 300px; margin: 0 auto"
+                                           placeholder="password"/>
+                                    <br>
+                                    <label class="font-weight-bold">Role</label>
+                                    <br>
+                                    <select class="form-control form-control-sm" name="roles" multiple
+                                            th:value="${userAdmin.get().nameRole()}"
+                                            style="height: 50px; width: 300px; margin: 0 auto">
+                                        <option value="1">ADMIN</option>
+                                        <option selected="selected" value="2">USER</option>
+                                    </select>
+                                    <br/>
+
+                                    <div>
+                                        <button type="submit" class="btn btn-success">Add new user</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+
 
             <div class="tab-pane fade" id="v-pills-user" role="tabpanel"
                  aria-labelledby="v-pills-profile-tab">User panel
