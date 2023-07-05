@@ -75,18 +75,94 @@
                                         <td th:utext="${user.getEmail()}">...</td>
                                         <td th:utext="${user.nameRole()}">...</td>
                                         <td>
-                                            <button class="btn btn-info">
-                                                <a th:href="@{/admin/{id}/edit (id=${user.getId()})}">Edit</a>
+                                            <button class="btn btn-info" data-bs-toggle="modal" th:data-bs-target="${'#editModel'+user.getId()}">
+                                               Edit
                                             </button>
+                                            <!--modelPageEdit-->
+                                            <div class="modal fade" th:id="${'editModel'+user.getId()}" tabindex="-1"
+                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalEdit">Edit user</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                            <div>
+                                                                <form th:method="PATCH" th:action="@{/admin/{id}(id=${user.getId()})}"
+                                                                      th:object="${user}">
+                                                                    <div class="modal-body">
+                                                                        <div class="mb-3">
+                                                                            <label for="nameUpdate"
+                                                                                   class="col-form-label">First Name</label>
+                                                                            <input type="text"
+                                                                                   th:value="${user.getName}" name="name"
+                                                                                   class="form-control" id="nameUpdate"/>
+                                                                        </div>
+                                                                        <div class="mb-3">
+                                                                            <label for="lastNameUpdate" class="col-form-label">Last name</label>
+                                                                            <input type="text"
+                                                                                   th:value="${user.getLastName}" name="lastName"
+                                                                                   class="form-control" id="lastNameUpdate"/>
+                                                                        </div>
+                                                                        <div class="mb-3">
+                                                                            <label for="emailUpdate" class="col-form-label">Email</label>
+                                                                            <input type="email"
+                                                                                   th:value="${user.getEmail}" name="email"
+                                                                                   class="form-control" id="emailUpdate" />
+                                                                        </div>
+                                                                        <div class="mb-3">
+                                                                            <label for="passwordUpdate"
+                                                                                   class="col-form-label">Password</label>
+                                                                            <input type="password"
+                                                                                   th:value="${user.getPassword()}" name="password"
+                                                                                   class="form-control" id="passwordUpdate"/>
+                                                                        </div>
+                                                                        <div class="mb-3">
+                                                                            <label class="container-fluid "
+                                                                                   for="rolesUpdate">Role</label>
+                                                                            <select class="form-control"
+                                                                                    id="rolesUpdate"
+                                                                                    name="roles" multiple>
+                                                                                <option th:each="role : ${listRole}"
+                                                                                        th:value="${role.getId()}"
+                                                                                        th:text="${role.getRole()}">Role name
+                                                                                </option>
+                                                                            </select>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="modal-footer">
+                                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                        <input type="submit" class="btn btn-primary" value="Edit"/>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                    </div>
+                                                </div>
+                                            </div><!--modelPageEdit-->
                                         </td>
                                         <td>
-                                            <form th:method="DELETE" th:action="@{/admin/{id} (id=${user.getId()})}"
-                                                  th:object="${user}">
-                                                <input type="hidden" name="id" th:value="${user.getId()}">
-                                                <button class="btn btn-danger">
-                                                    Delete
-                                                </button>
-                                            </form>
+                                            <button class="btn btn-danger" data-bs-toggle="modal" th:data-bs-target="${'#deleteModel'+user.getId()}">
+                                                Delete
+                                            </button>
+                                            <!--modelPageDelete-->
+                                            <div class="modal fade" th:id="${'deleteModel'+user.getId()}" tabindex="-1"
+                                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalDelete">Delete user</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            ...
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                            <button type="button" class="btn btn-danger">Delete</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div><!--modelPageDelete-->
                                         </td>
                                     </tr>
                                     </thead>
