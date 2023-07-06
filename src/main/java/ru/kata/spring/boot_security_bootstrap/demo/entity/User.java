@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "users")
@@ -24,7 +25,7 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
     @ManyToMany(cascade = CascadeType.PERSIST,
-    fetch = FetchType.LAZY)
+            fetch = FetchType.LAZY)
     @JoinTable(
             name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -33,6 +34,13 @@ public class User implements UserDetails {
     private List<Role> roles;
 
     public User() {
+    }
+
+    public User(String name, String lastName, String email, String password) {
+        this.name = name;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
     }
 
     public User(String name, String lastName, String email, String password, List<Role> roles) {
@@ -124,15 +132,16 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-        public void addRole(Role role) {
-        if (roles == null){
+    public void addRole(Role role) {
+        if (roles == null) {
             roles = new ArrayList<>();
         }
         roles.add(role);
     }
+
     public String nameRole() {
         StringBuilder roleName = new StringBuilder();
-        for(Role role : roles) {
+        for (Role role : roles) {
             roleName.append(role.getRole()).append(" ");
         }
         return roleName.toString();
@@ -148,5 +157,22 @@ public class User implements UserDetails {
                 ", password='" + password + '\'' +
                 ", roles=" + roles +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return id == user.id && Objects.equals(name, user.name)
+                && Objects.equals(lastName, user.lastName)
+                && Objects.equals(email, user.email)
+                && Objects.equals(password, user.password)
+                && Objects.equals(roles, user.roles);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, lastName, email, password, roles);
     }
 }
