@@ -25,8 +25,11 @@ public class UserInit {
         Role user = new Role("USER");
         adminUser.addRole(admin);
         userUser.addRole(user);
-        userService.saveUsers(adminUser);
-        userService.saveUsers(userUser);
+        if (userService.findByUsername(adminUser.getName()).isEmpty()
+                && userService.findByUsername(userUser.getName()).isEmpty()) {
+            userService.saveUsers(adminUser);
+            userService.saveUsers(userUser);
+        }
     }
 
 }
