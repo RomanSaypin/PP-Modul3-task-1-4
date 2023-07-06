@@ -17,7 +17,6 @@
         <a class="btn btn-dark" aria-current="page" th:href="@{/logout}">Logout</a>
     </div>
 </nav>
-
 <br>
 <div class="d-flex align-items-start"><!--Основа страницы-->
 
@@ -223,9 +222,90 @@
                             </table>
                         </div><!--таблица и модальные окна-->
                     </div><!--таблица и модальные окна-->
+                    <div class="tab-pane fade" id="newUser"><!--Блок newUser-->
+                        <div class="card">
+                            <h5 class="card-header">Add new user</h5>
+                            <div class="card-body text-center">
+                                <form th:method="POST" th:action="@{/admin/}" th:object="${userAdmin}">
+                                    <label class="font-weight-bold" for="firstNameNew">First name</label>
+                                    <br>
+                                    <input class="form-control" type="text"
+                                           name="name"
+                                           id="firstNameNew"
+                                           style="height: 30px; width: 300px; margin: 0 auto"
+                                           placeholder="name"/>
+                                    <br>
+                                    <label class="font-weight-bold" for="lastNameNew">Last name</label>
+                                    <br>
+                                    <input class="form-control" type="text"
+                                           name="lastName"
+                                           id="lastNameNew"
+                                           style="height: 30px; width: 300px; margin: 0 auto"
+                                           placeholder="last name"/>
+                                    <br>
+                                    <label class="font-weight-bold" for="emailNew">Email</label>
+                                    <br>
+                                    <input class="form-control" type="text" name="email"
+                                           id="emailNew"
+                                           style="height: 30px; width: 300px; margin: 0 auto"
+                                           placeholder="email"/>
+                                    <br>
+                                    <label class="font-weight-bold" for="passwordNew">Password</label>
+                                    <br>
+                                    <input class="form-control" type="text"
+                                           name="password"
+                                           id="passwordNew"
+                                           style="height: 30px; width: 300px; margin: 0 auto"
+                                           placeholder="password"/>
+                                    <br>
+                                    <label class="font-weight-bold">Role</label>
+                                    <br>
+                                    <select class="form-control form-control-sm" name="roles" multiple
+                                            th:value="${userAdmin.get().nameRole()}"
+                                            style="height: 50px; width: 300px; margin: 0 auto">
+                                        <option value="1">ADMIN</option>
+                                        <option selected="selected" value="2">USER</option>
+                                    </select>
+                                    <br/>
+
+                                    <div>
+                                        <button type="submit" class="btn btn-success">Add new user</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div><!--Блок newUser-->
                 </div><!--Блок userTable and newUser-->
             </div><!--Блок таблиц и модальных окон-->
         </div><!--Основа таблиц и модальных окон-->
+        <div class="tab-pane fade" id="v-pills-user" role="tabpanel" aria-labelledby="v-pills-user-tab"><!--Блок инфы о user'е-->
+            <div class="container">
+                <div class="d-flex align-content-center flex-wrap" style="height: 100px">
+                    <h2 class="d-flex align-content-center flex-wrap"><b>User information-page</b></h2>
+                </div>
+                <table class="table table-striped table-bordered table-hover caption-top">
+                    <caption><p class="fw-bold">About user</p></caption>
+                    <thead class="table-while">
+                    <tr>
+                        <th>Id</th>
+                        <th>First name</th>
+                        <th>Last name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td th:text="${userAdmin.get().getId()}"></td>
+                        <td th:text="${userAdmin.get().getName()}"></td>
+                        <td th:text="${userAdmin.get().getLastName()}"></td>
+                        <td th:text="${userAdmin.get().getEmail()}"></td>
+                        <td th:text="${userAdmin.get().nameRole()}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div><!--Блок инфы о user'е-->
     </div><!--Основа правой части-->
 </div><!--Основа страницы-->
 
